@@ -125,12 +125,12 @@ def main():
          sg.InputText(enable_events=True, key='-CELLIDX-'), sg.Button('Go')],
         [sg.Button("Next", size=(25, 1), key='ShowNextImage')],
         [sg.Button("Result", size=(25, 1), key='-Result-')],
-        [sg.Radio('None', 'Radio', True, size=(20, 1), key='-CellTypeButton0-')],
-        [sg.Radio('Normal Cell', 'Radio', True, size=(20, 1), key='-CellTypeButton1-')],
-        [sg.Radio('CC', 'Radio', True, size=(20, 1), key='-CellTypeButton2-')],
-        [sg.Radio('KHC', 'Radio', True, size=(20, 1), key='-CellTypeButton3-')],
-        [sg.Radio('Folded', 'Radio', True, size=(20, 1), key='-CellTypeButton4-')],
-        [sg.Radio('Unfocused', 'Radio', True, size=(20, 1), key='-CellTypeButton5-')],
+        [sg.Button('None', size=(25, 1))],
+        [sg.Button('Normal Cell', size=(25, 1))],
+        [sg.Button('CC', size=(25, 1))],
+        [sg.Button('KHC', size=(25, 1))],
+        [sg.Button('Folded', size=(25, 1))],
+        [sg.Button('Unfocused', size=(25, 1))],
     ]
 
     dialog_box = [
@@ -306,27 +306,27 @@ def main():
             except:
                 window["-output message-"].update(data="you need to load C1 Image first")
 
-        if event == '-CellTypeButton0-':
+        if event == 'None':
             celltypes[Cellidx] = 0
             print(celltypes[Cellidx])
             print(Cellidx)
-        if event == '-CellTypeButton1-':
+        if event == 'Normal Cell':
             celltypes[Cellidx] = 1
             print(celltypes[Cellidx])
             print(Cellidx)
-        if event == '-CellTypeButton2-':
+        if event == 'CC':
             celltypes[Cellidx] = 2
             print(celltypes[Cellidx])
             print(Cellidx)
-        if event == '-CellTypeButton3-':
+        if event == 'KHC':
             celltypes[Cellidx] = 3
             print(celltypes[Cellidx])
             print(Cellidx)
-        if event == '-CellTypeButton4-':
+        if event == 'Folded':
             celltypes[Cellidx] = 4
             print(celltypes[Cellidx])
             print(Cellidx)
-        if event == '-CellTypeButton5-':
+        if event == 'Unfocused':
             celltypes[Cellidx] = 5
             print(celltypes[Cellidx])
             print(Cellidx)

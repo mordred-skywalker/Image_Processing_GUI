@@ -50,6 +50,13 @@ def main():
 
         ],
 
+        [
+            sg.Text("XY location data:", size=(20,1)),
+            sg.Input(size=(30, 1), enable_events=True, key="-LOC-"),
+            sg.FileBrowse(size=(10, 1)),
+            sg.Button("Load XY", size=(10, 1))
+        ]
+
     ]
 
     image_viewer_column_C1 = [

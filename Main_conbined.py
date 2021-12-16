@@ -6,20 +6,10 @@ from PIL import Image
 import cv2
 import matplotlib.pyplot as plt
 import imutils
-import numpy as np
-from time import time,sleep
 from PIL import ImageFile
-from os import listdir
-from os.path import isfile, join
+
 Image.MAX_IMAGE_PIXELS = None
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-
-
-#mypath='/path/to/folder'
-#onlyfiles = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
-#images = numpy.empty(len(onlyfiles), dtype=object)
-#for n in range(0, len(onlyfiles)):
-  #images[n] = cv2.imread( join(mypath,onlyfiles[n]) )
 
 
 class reader:
@@ -86,27 +76,26 @@ def show_cropped_image(img, x, y, size):
     return new_img
 
 
-
 def main():
-    file_types = [("TIFF(*.tif)","*.tif")]
+    file_types = [("TIFF(*.tif)", "*.tif")]
     Cellidx = []
 
     file_list_column = [
         [
 
-            sg.Text("C1 Image Path:", size =(20,1)),
-            sg.Input(size=(30,1),enable_events=True, key="-C1FILE-"),
-            sg.FileBrowse(file_types=file_types, size=(10,1)),
-            sg.Button("Load C1 Image", size=(10,1))
+            sg.Text("C1 Image Path:", size=(20, 1)),
+            sg.Input(size=(30, 1), enable_events=True, key="-C1FILE-"),
+            sg.FileBrowse(file_types=file_types, size=(10, 1)),
+            sg.Button("Load C1 Image", size=(10, 1))
 
         ],
 
 
         [
-            sg.Text("C2 Image Path:", size=(20,1)),
+            sg.Text("C2 Image Path:", size=(20, 1)),
             sg.Input(size=(30, 1), enable_events=True, key="-C2FILE-"),
-            sg.FileBrowse(file_types=file_types, size=(10,1)),
-            sg.Button("Load C2 Image", size=(10,1), )
+            sg.FileBrowse(file_types=file_types, size=(10, 1)),
+            sg.Button("Load C2 Image", size=(10, 1), )
 
         ],
 
@@ -118,33 +107,34 @@ def main():
 
     image_viewer_column_C1 = [
         [sg.Text("C1 Image :")],
-        [sg.Text(size=(40,1), key="-C1TOUT-")],
-        [sg.Image(key="-C1IMAGE-", size=(300,300))],
+        [sg.Text(size=(40, 1), key="-C1TOUT-")],
+        [sg.Image(key="-C1IMAGE-", size=(300, 300))],
         [sg.HSeperator()],
-        [sg.Image(key='-C1INTPLOT-', size=(300,300))]
+        [sg.Image(key='-C1INTPLOT-', size=(300, 300))]
     ]
     image_viewer_column_C2 = [
         [sg.Text("C2 Image:")],
-        [sg.Text(size=(40,1), key="-C2TOUT-")],
-        [sg.Image(key="-C2IMAGE-", size=(300,300))],
+        [sg.Text(size=(40, 1), key="-C2TOUT-")],
+        [sg.Image(key="-C2IMAGE-", size=(300, 300))],
         [sg.HSeperator()],
         [sg.Image(key='-C2INTPLOT-', size=(300, 300))]
     ]
 
     cell_type_classifier = [
-        [sg.Text('Select cell index', size=(10,1)), sg.InputText(enable_events=True, key='-CELLIDX-'), sg.Button('Go')],
-        [sg.Button("Next", size=(25,1), key='ShowNextImage')],
+        [sg.Text('Select cell index', size=(10, 1)),
+         sg.InputText(enable_events=True, key='-CELLIDX-'), sg.Button('Go')],
+        [sg.Button("Next", size=(25, 1), key='ShowNextImage')],
         [sg.Button("Result", size=(25, 1), key='-Result-')],
-        [sg.Radio('None', 'Radio', True, size=(20,1), key='-CellTypeButton0-')],
-        [sg.Radio('Normal Cell', 'Radio', True, size=(20,1), key='-CellTypeButton1-')],
-        [sg.Radio('CC', 'Radio', True, size=(20,1), key='-CellTypeButton2-')],
-        [sg.Radio('KHC', 'Radio', True, size=(20,1), key='-CellTypeButton3-')],
-        [sg.Radio('Folded', 'Radio', True, size=(20,1), key='-CellTypeButton4-')],
-        [sg.Radio('Unfocused', 'Radio', True, size=(20,1), key='-CellTypeButton5-')],
+        [sg.Radio('None', 'Radio', True, size=(20, 1), key='-CellTypeButton0-')],
+        [sg.Radio('Normal Cell', 'Radio', True, size=(20, 1), key='-CellTypeButton1-')],
+        [sg.Radio('CC', 'Radio', True, size=(20, 1), key='-CellTypeButton2-')],
+        [sg.Radio('KHC', 'Radio', True, size=(20, 1), key='-CellTypeButton3-')],
+        [sg.Radio('Folded', 'Radio', True, size=(20, 1), key='-CellTypeButton4-')],
+        [sg.Radio('Unfocused', 'Radio', True, size=(20, 1), key='-CellTypeButton5-')],
     ]
 
     dialog_box = [
-        [sg.Text(size=(40,1), key="-output message-")],
+        [sg.Text(size=(40, 1), key="-output message-")],
     ]
 
     # Layout
@@ -159,8 +149,6 @@ def main():
              sg.VSeperator(),
              sg.Column(cell_type_classifier)],
 
-            #[sg.Column(dialog_box)],
-
     ]
 
     # Window
@@ -172,7 +160,7 @@ def main():
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
 
-        if event == 'Load C1 Image': #When a file is chosen
+        if event == 'Load C1 Image':   # When a file is chosen
             # foldername = values["-FOLDER-"]
             c1filename = values["-C1FILE-"]
 
@@ -180,22 +168,21 @@ def main():
                 c1image = Image.open(c1filename)
                 # show small size image
                 imszc1 = c1image.size
-                #image_1 = np.array(Image.fromarray(image).resize(imsz[0]/10,imsz[1]/10))
-                image_smc1 = c1image.resize((int(imszc1[0]/40),int(imszc1[1]/40)))
+                # image_1 = np.array(Image.fromarray(image).resize(imsz[0]/10,imsz[1]/10))
+                image_smc1 = c1image.resize((int(imszc1[0]/40), int(imszc1[1]/40)))
                 bio = io.BytesIO()
                 image_smc1.save(bio, format="TIFF")
                 window["-C1IMAGE-"].update(data=bio.getvalue())
                 img = cv2.imread(c1filename)
                 img_g = img[:, :, 1]
-                plt.hist(img_g.flatten(), 100, [0,65535], color = 'r')
+                plt.hist(img_g.flatten(), 100, [0, 65535], color='r')
                 plt.savefig('C1INTMAP.PNG')
                 C1INTMAP = Image.open('C1INTMAP.PNG')
                 imgszc1 = C1INTMAP.size
-                C1INTMAP = C1INTMAP.resize((int(imgszc1[0]/2),int(imgszc1[1]/2)))
+                C1INTMAP = C1INTMAP.resize((int(imgszc1[0]/2), int(imgszc1[1]/2)))
                 bio = io.BytesIO()
                 C1INTMAP.save(bio, format="png")
                 window["-C1INTPLOT-"].update(data=bio.getvalue())
-
 
         if event == 'Load C2 Image':  # When a file is chosen
             c2filename = values["-C2FILE-"]
@@ -222,10 +209,10 @@ def main():
             try:
                 c1img, Location = img_process(c1filename)
                 c2img, location = img_process(c2filename)
-                celltypes = [0]* len(Location)
+                celltypes = [0] * len(Location)
                 sg.Popup('XY location complete')
             except:
-                sg.popup_error("you need to load C1 Image first")
+                sg.popup_error("you need to load C1 and C2 Image first")
 
         if event == 'Go':
             Cellidx = int(values['-CELLIDX-'])
@@ -235,14 +222,14 @@ def main():
             try:
                 show_cropped_image(c1img, Cur_loc[0], Cur_loc[1], 70)
                 c1Crop_img = Image.open('new_img.jpg')
-                c1Crop_img = c1Crop_img.resize((300,300))
+                c1Crop_img = c1Crop_img.resize((300, 300))
                 bio = io.BytesIO()
                 c1Crop_img.save(bio, format="TIFF")
                 window["-C1IMAGE-"].update(data=bio.getvalue())
 
                 c1img = cv2.imread('new_img.jpg')
                 c1img_g = c1img[:, :, 1]
-                plt.hist(img_g.flatten(), 100, [0, 65535], color='r')
+                plt.hist(c1img_g.flatten(), 100, [0, 65535], color='r')
                 plt.savefig('C1INTMAP.PNG')
                 C1INTMAP = Image.open('C1INTMAP.PNG')
                 imgszc1 = C1INTMAP.size
@@ -269,11 +256,8 @@ def main():
                 C2INTMAP.save(bio, format="png")
                 window["-C2INTPLOT-"].update(data=bio.getvalue())
 
-
-
             except:
                 sg.Popup('Enter index first!')
-
 
         if event == 'ShowNextImage':
             print(values['-CELLIDX-'])
@@ -291,7 +275,7 @@ def main():
 
                 c1img = cv2.imread('new_img.jpg')
                 c1img_g = c1img[:, :, 1]
-                plt.hist(img_g.flatten(), 100, [0, 65535], color='r')
+                plt.hist(c1img_g.flatten(), 100, [0, 65535], color='r')
                 plt.savefig('C1INTMAP.PNG')
                 C1INTMAP = Image.open('C1INTMAP.PNG')
                 imgszc1 = C1INTMAP.size
@@ -322,22 +306,30 @@ def main():
             except:
                 window["-output message-"].update(data="you need to load C1 Image first")
 
-
-
-
         if event == '-CellTypeButton0-':
-            celltypes[Cellidx]= 0
+            celltypes[Cellidx] = 0
+            print(celltypes[Cellidx])
+            print(Cellidx)
         if event == '-CellTypeButton1-':
-            celltypes[Cellidx]= 1
+            celltypes[Cellidx] = 1
+            print(celltypes[Cellidx])
+            print(Cellidx)
         if event == '-CellTypeButton2-':
-            celltypes[Cellidx]= 2
+            celltypes[Cellidx] = 2
+            print(celltypes[Cellidx])
+            print(Cellidx)
         if event == '-CellTypeButton3-':
-            celltypes[Cellidx]= 3
+            celltypes[Cellidx] = 3
+            print(celltypes[Cellidx])
+            print(Cellidx)
         if event == '-CellTypeButton4-':
-            celltypes[Cellidx]= 4
+            celltypes[Cellidx] = 4
+            print(celltypes[Cellidx])
+            print(Cellidx)
         if event == '-CellTypeButton5-':
-            celltypes[Cellidx]= 5
-
+            celltypes[Cellidx] = 5
+            print(celltypes[Cellidx])
+            print(Cellidx)
 
         if event == '-Result-':
             df_loc = pd.DataFrame(Location)
@@ -349,8 +341,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-    #show_cropped_image(img, coord[1][0], coord[1][1], 100)
-
-

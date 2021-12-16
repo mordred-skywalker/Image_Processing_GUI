@@ -18,6 +18,9 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 #for n in range(0, len(onlyfiles)):
   #images[n] = cv2.imread( join(mypath,onlyfiles[n]) )
 
+
+
+
 def croppedimages(imagestack):
     idx = 0
     yield imagestack[idx]
@@ -68,6 +71,10 @@ cell_type_classifier = [
 dialog_box = [
     [sg.Text(size=(40,1), key="-output message-")],
 ]
+
+Next_button = [
+    [sg.Button("Next")]
+]
 # Layout
 
 layout = [
@@ -76,7 +83,7 @@ layout = [
         [sg.HSeperator()],
         [sg.Column(image_viewer_column_C1), sg.VSeperator(), sg.Column(image_viewer_column_C2), sg.VSeperator(), sg.Column(cell_type_classifier)],
 
-        #[sg.Column(dialog_box)],
+        [sg.Column(dialog_box)],
 
 ]
 
@@ -91,26 +98,30 @@ while True:
 
     if event == 'Load C1 Image': #When a file is chosen
         # foldername = values["-FOLDER-"]
-        filename = values["-FILE-"]
+        filename = values["-C1FILE-"]
         if os.path.exists(filename):
             image = Image.open(filename)
             # show small size image
-            imsz = image.size
-            image_sm = Image.resize(image,[imsz[0]/10,imsz[1]/10])
+            imszc1 = image.size
+            #image_1 = np.array(Image.fromarray(image).resize(imsz[0]/10,imsz[1]/10))
+            image_smc1 = image.resize((int(imszc1[0]/20),int(imszc1[1]/20)))
             bio = io.BytesIO()
-            image_sm.save(bio, format="TIFF")
+            image_smc1.save(bio, format="TIFF")
             window["-C1IMAGE-"].update(data=bio.getvalue())
             # run cell detection on the image with multiple cells
             # xycoord = celldetection(image)
             # imagestack = cropimages(image,xycoord) #crop images at xycoord and return as imagestack as variable type "generator"
 
     if event == 'Load C2 Image':  # When a file is chosen
-        filename = values["-FILE-"]
+        filename = values["-C2FILE-"]
         if os.path.exists(filename):
-            image = Image.open(values["-FILE-"])
-            image.thumbnail((400, 400))
+            image = Image.open(filename)
+            # show small size image
+            imszc2 = image.size
+            # image_1 = np.array(Image.fromarray(image).resize(imsz[0]/10,imsz[1]/10))
+            image_smc2 = image.resize((int(imszc2[0] / 20), int(imszc2[1] / 20)))
             bio = io.BytesIO()
-            image.save(bio, format="TIFF")
+            image_smc2.save(bio, format="TIFF")
             window["-C2IMAGE-"].update(data=bio.getvalue())
 
     if event == 'Show Next Image':

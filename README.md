@@ -32,7 +32,7 @@ This module requires the following modules:
 
 To set up the module, please make sure you have met all the requirements in the previous section and download the zip file for the repo to your local directory. Unzip the file into a proper folder and run the following code in commandline.
 
-`$cd /your-filepath`
+`$cd /your-filepath-to-the-unzipped-folder`
 
 `$python3 run.py`
 

@@ -8,6 +8,7 @@ This is the code repository for the final Project in Software Carpentry Fall 202
 * [Setup](https://github.com/mordred-skywalker/Image_Processing_GUI#Setup)
 * [Usage](https://github.com/mordred-skywalker/Image_Processing_GUI#Usage)
 * [Sources](https://github.com/mordred-skywalker/Image_Processing_GUI#Sources)
+* [Feedback](https://github.com/mordred-skywalker/Image_Processing_GUI#Feedback)
 
 ## Requirements
 
@@ -51,3 +52,11 @@ The cell annotation GUI will show in the Python window. For how to further navig
 
 ## Sources
 This module is inspired by opencv [tutorial](https://www.pyimagesearch.com/2016/02/01/opencv-center-of-contour/) by Adrian Rosebrock.
+
+
+## Feedback
+If you have any questions and comments regarding the GUI, please feel free to reach out to us:
+
+Mordred Yuan jyuan31@jh.edu
+
+Yufei Sun ysun119@jh.edu

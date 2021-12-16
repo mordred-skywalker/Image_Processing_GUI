@@ -105,7 +105,7 @@ class reader:
             cv2.drawContours(img, [c], -1, (255, 255, 255), 1)
             cv2.circle(img, (cX, cY), 1, (0, 255, 0), -1)
             # put the coordinates onto the image
-            cv2.putText(img, '{cd}'.format(cd=(cX, cY)), (cX - 20, cY - 20),
+            cv2.putText(img, '{cd}'.format(cd=(cX, cY)), (cX - 25, cY - 20),
                         cv2.FONT_HERSHEY_TRIPLEX, 0.25, (255, 255, 255), 1)
         return img, coord
 
@@ -146,10 +146,10 @@ def show_cropped_image(img, x, y, size):
 
     '''
     # calculate the upper left coordinates and the lower right coordinates
-    left = x - size // 2
-    top = y - size // 2
-    right = x + size // 2
-    bottom = y + size // 2
+    left = int(x - size / 2)
+    top = int(y - size / 2)
+    right = int(x + size / 2)
+    bottom = int(y + size / 2)
 
     # transform the image and use the coordinates to crop the image
     im_transform = Image.fromarray(img)

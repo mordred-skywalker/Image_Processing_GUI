@@ -216,98 +216,107 @@ def main():
 
         if event == 'Go':
             Cellidx = int(values['-CELLIDX-'])
-            print('Cellidx:', Cellidx)
-            Cur_loc = Location[Cellidx]
-            print('Cur_loc:', Cur_loc)
-
-            try:
-                show_cropped_image(c1img, Cur_loc[0], Cur_loc[1], 70)
-                print('Cellidx1:', Cellidx)
+            if 0 < Cellidx < len(Location):
+                print('Cellidx:', Cellidx)
+                Cur_loc = Location[Cellidx]
                 print('Cur_loc:', Cur_loc)
-                c1Crop_img = Image.open('new_img.jpg')
-                c1Crop_img = c1Crop_img.resize((300, 300))
-                bio = io.BytesIO()
-                c1Crop_img.save(bio, format="TIFF")
-                window["-C1IMAGE-"].update(data=bio.getvalue())
 
-                c1imgjpg = cv2.imread('new_img.jpg')
-                c1img_g = c1imgjpg[:, :, 1]
-                plt.hist(c1img_g.flatten(), 100, [0, 65535], color='r')
-                plt.savefig('C1INTMAP.PNG')
-                C1INTMAP = Image.open('C1INTMAP.PNG')
-                imgszc1 = C1INTMAP.size
-                C1INTMAP = C1INTMAP.resize((int(imgszc1[0] / 2), int(imgszc1[1] / 2)))
-                bio = io.BytesIO()
-                C1INTMAP.save(bio, format="png")
-                window["-C1INTPLOT-"].update(data=bio.getvalue())
+                try:
+                    show_cropped_image(c1img, Cur_loc[0], Cur_loc[1], 70)
+                    print('Cellidx1:', Cellidx)
+                    print('Cur_loc:', Cur_loc)
+                    c1Crop_img = Image.open('new_img.jpg')
+                    c1Crop_img = c1Crop_img.resize((300, 300))
+                    bio = io.BytesIO()
+                    c1Crop_img.save(bio, format="TIFF")
+                    window["-C1IMAGE-"].update(data=bio.getvalue())
 
-                show_cropped_image(c2img, Cur_loc[0], Cur_loc[1], 70)
-                c2Crop_img = Image.open('new_img.jpg')
-                c2Crop_img = c2Crop_img.resize((300, 300))
-                bio = io.BytesIO()
-                c2Crop_img.save(bio, format="TIFF")
-                window["-C2IMAGE-"].update(data=bio.getvalue())
+                    c1imgjpg = cv2.imread('new_img.jpg')
+                    c1img_g = c1imgjpg[:, :, 1]
+                    plt.hist(c1img_g.flatten(), 100, [0, 65535], color='r')
+                    plt.savefig('C1INTMAP.PNG')
+                    C1INTMAP = Image.open('C1INTMAP.PNG')
+                    imgszc1 = C1INTMAP.size
+                    C1INTMAP = C1INTMAP.resize((int(imgszc1[0] / 2), int(imgszc1[1] / 2)))
+                    bio = io.BytesIO()
+                    C1INTMAP.save(bio, format="png")
+                    window["-C1INTPLOT-"].update(data=bio.getvalue())
 
-                c2imgjpg = cv2.imread('new_img.jpg')
-                c2img_g = c2imgjpg[:, :, 1]
-                plt.hist(c2img_g.flatten(), 100, [0, 65535], color='green')
-                plt.savefig('C2INTMAP.PNG')
-                C2INTMAP = Image.open('C2INTMAP.PNG')
-                imgszc2 = C2INTMAP.size
-                C2INTMAP = C2INTMAP.resize((int(imgszc2[0] / 2), int(imgszc2[1] / 2)))
-                bio = io.BytesIO()
-                C2INTMAP.save(bio, format="png")
-                window["-C2INTPLOT-"].update(data=bio.getvalue())
+                    show_cropped_image(c2img, Cur_loc[0], Cur_loc[1], 70)
+                    c2Crop_img = Image.open('new_img.jpg')
+                    c2Crop_img = c2Crop_img.resize((300, 300))
+                    bio = io.BytesIO()
+                    c2Crop_img.save(bio, format="TIFF")
+                    window["-C2IMAGE-"].update(data=bio.getvalue())
 
-            except:
-                sg.Popup('Enter index first!')
+                    c2imgjpg = cv2.imread('new_img.jpg')
+                    c2img_g = c2imgjpg[:, :, 1]
+                    plt.hist(c2img_g.flatten(), 100, [0, 65535], color='green')
+                    plt.savefig('C2INTMAP.PNG')
+                    C2INTMAP = Image.open('C2INTMAP.PNG')
+                    imgszc2 = C2INTMAP.size
+                    C2INTMAP = C2INTMAP.resize((int(imgszc2[0] / 2), int(imgszc2[1] / 2)))
+                    bio = io.BytesIO()
+                    C2INTMAP.save(bio, format="png")
+                    window["-C2INTPLOT-"].update(data=bio.getvalue())
+
+                except:
+                    sg.Popup('Enter index first!')
+            else:
+                sg.popup_error('Invalid Cell Index!')
 
         if event == 'ShowNextImage':
-            print(values['-CELLIDX-'])
-            Cellidx = int(values['-CELLIDX-']) + int(1)
-            Cur_loc = location[Cellidx]
+            Cellidx = int(values['-CELLIDX-'])
+            if 0 < Cellidx < len(Location) - 1:
+                print(values['-CELLIDX-'])
+                Cellidx = int(values['-CELLIDX-']) + int(1)
+                Cur_loc = location[Cellidx]
 
-            try:
-                show_cropped_image(c1img, Cur_loc[0], Cur_loc[1], 70)
-                print(Cur_loc)
-                c1Crop_img = Image.open('new_img.jpg')
-                c1Crop_img = c1Crop_img.resize((300, 300))
-                bio = io.BytesIO()
-                c1Crop_img.save(bio, format="TIFF")
-                window["-C1IMAGE-"].update(data=bio.getvalue())
+                try:
+                    show_cropped_image(c1img, Cur_loc[0], Cur_loc[1], 70)
+                    print(Cur_loc)
+                    c1Crop_img = Image.open('new_img.jpg')
+                    c1Crop_img = c1Crop_img.resize((300, 300))
+                    bio = io.BytesIO()
+                    c1Crop_img.save(bio, format="TIFF")
+                    window["-C1IMAGE-"].update(data=bio.getvalue())
 
-                c1imgjpg = cv2.imread('new_img.jpg')
-                c1img_g = c1imgjpg[:, :, 1]
-                plt.hist(c1img_g.flatten(), 100, [0, 65535], color='r')
-                plt.savefig('C1INTMAP.PNG')
-                C1INTMAP = Image.open('C1INTMAP.PNG')
-                imgszc1 = C1INTMAP.size
-                C1INTMAP = C1INTMAP.resize((int(imgszc1[0] / 2), int(imgszc1[1] / 2)))
-                bio = io.BytesIO()
-                C1INTMAP.save(bio, format="png")
-                window["-C1INTPLOT-"].update(data=bio.getvalue())
+                    c1imgjpg = cv2.imread('new_img.jpg')
+                    c1img_g = c1imgjpg[:, :, 1]
+                    plt.hist(c1img_g.flatten(), 100, [0, 65535], color='r')
+                    plt.savefig('C1INTMAP.PNG')
+                    C1INTMAP = Image.open('C1INTMAP.PNG')
+                    imgszc1 = C1INTMAP.size
+                    C1INTMAP = C1INTMAP.resize((int(imgszc1[0] / 2), int(imgszc1[1] / 2)))
+                    bio = io.BytesIO()
+                    C1INTMAP.save(bio, format="png")
+                    window["-C1INTPLOT-"].update(data=bio.getvalue())
 
-                show_cropped_image(c2img, Cur_loc[0], Cur_loc[1], 70)
-                c2Crop_img = Image.open('new_img.jpg')
-                c2Crop_img = c2Crop_img.resize((300, 300))
-                bio = io.BytesIO()
-                c2Crop_img.save(bio, format="TIFF")
-                window["-C2IMAGE-"].update(data=bio.getvalue())
+                    show_cropped_image(c2img, Cur_loc[0], Cur_loc[1], 70)
+                    c2Crop_img = Image.open('new_img.jpg')
+                    c2Crop_img = c2Crop_img.resize((300, 300))
+                    bio = io.BytesIO()
+                    c2Crop_img.save(bio, format="TIFF")
+                    window["-C2IMAGE-"].update(data=bio.getvalue())
 
-                c2imgjpg = cv2.imread('new_img.jpg')
-                c2img_g = c2imgjpg[:, :, 1]
-                plt.hist(c2img_g.flatten(), 100, [0, 65535], color='green')
-                plt.savefig('C2INTMAP.PNG')
-                C2INTMAP = Image.open('C2INTMAP.PNG')
-                imgszc2 = C2INTMAP.size
-                C2INTMAP = C2INTMAP.resize((int(imgszc2[0] / 2), int(imgszc2[1] / 2)))
-                bio = io.BytesIO()
-                C2INTMAP.save(bio, format="png")
-                window["-C2INTPLOT-"].update(data=bio.getvalue())
+                    c2imgjpg = cv2.imread('new_img.jpg')
+                    c2img_g = c2imgjpg[:, :, 1]
+                    plt.hist(c2img_g.flatten(), 100, [0, 65535], color='green')
+                    plt.savefig('C2INTMAP.PNG')
+                    C2INTMAP = Image.open('C2INTMAP.PNG')
+                    imgszc2 = C2INTMAP.size
+                    C2INTMAP = C2INTMAP.resize((int(imgszc2[0] / 2), int(imgszc2[1] / 2)))
+                    bio = io.BytesIO()
+                    C2INTMAP.save(bio, format="png")
+                    window["-C2INTPLOT-"].update(data=bio.getvalue())
 
-                window['-CELLIDX-'].update(Cellidx)
-            except:
-                window["-output message-"].update(data="you need to load C1 Image first")
+                    window['-CELLIDX-'].update(Cellidx)
+
+                except Cellidx == None or Cellidx > len(Location):
+                    sg.popup_error('Invalid Cell Index!')
+            else:
+                sg.popup_error('Invalid Cell Index!')
+
 
         if event == 'None':
             celltypes[Cellidx] = 0

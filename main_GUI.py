@@ -15,7 +15,8 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 def main():
-    file_types = [("TIFF(*.tiff)", "*.tiff")]   # specify file types to read
+    file_types = [("TIFF(*.tiff)", "*.tiff"),
+                  ("TIF(*.tif)", "*.tif")]   # specify file types to read
     Cellidx = []       # create cell index
 
     # Create column UI elements
@@ -113,7 +114,8 @@ def main():
             c1filename = values["-C1FILE-"]  # grab filename from key
 
             if os.path.exists(c1filename):
-                c1image = Image.open(c1filename)  # read the input image file
+                # read the input image file
+                c1image = Image.open(c1filename)
                 # show small size image
                 imszc1 = c1image.size
                 image_smc1 = c1image.resize((int(imszc1[0] / 40),
@@ -146,38 +148,43 @@ def main():
 
                 # update image to channel 1 intensity map window
                 window["-C1INTPLOT-"].update(data=bio.getvalue())
+            else:
+                sg.popup_error('Input Channel 1 Image Path First!')
 
         # same fot Channel 2
         if event == 'Load C2 Image':  # When a file is chosen
             c2filename = values["-C2FILE-"]
-            c2image = Image.open(c2filename)  # read the input image file
+            try:
+                c2image = Image.open(c2filename)  # read the input image file
 
-            # show small size image
-            imszc2 = c2image.size
-            image_smc2 = c2image.resize((int(imszc2[0] / 40),
-                                         int(imszc2[1] / 40)))
+                # show small size image
+                imszc2 = c2image.size
+                image_smc2 = c2image.resize((int(imszc2[0] / 40),
+                                             int(imszc2[1] / 40)))
 
-            bio = io.BytesIO()
-            image_smc2.save(bio, format="TIFF")
+                bio = io.BytesIO()
+                image_smc2.save(bio, format="TIFF")
 
-            window["-C2IMAGE-"].update(data=bio.getvalue())
+                window["-C2IMAGE-"].update(data=bio.getvalue())
 
-            img2int = cv2.imread(c2filename)
-            img_g2 = img2int[:, :, 1]
+                img2int = cv2.imread(c2filename)
+                img_g2 = img2int[:, :, 1]
 
-            plt.hist(img_g2.flatten(), 100, [0, 100], color='g')
-            plt.savefig('C2INTMAP.PNG')  # save the plot
-            plt.clf()  # clear the plot
+                plt.hist(img_g2.flatten(), 100, [0, 100], color='g')
+                plt.savefig('C2INTMAP.PNG')  # save the plot
+                plt.clf()  # clear the plot
 
-            C2INTMAP = Image.open('C2INTMAP.PNG')
-            imgszc2 = C2INTMAP.size
-            C2INTMAP = C2INTMAP.resize((int(imgszc2[0] / 2),
-                                        int(imgszc2[1] / 2)))
+                C2INTMAP = Image.open('C2INTMAP.PNG')
+                imgszc2 = C2INTMAP.size
+                C2INTMAP = C2INTMAP.resize((int(imgszc2[0] / 2),
+                                            int(imgszc2[1] / 2)))
 
-            bio = io.BytesIO()
-            C2INTMAP.save(bio, format="png")
+                bio = io.BytesIO()
+                C2INTMAP.save(bio, format="png")
 
-            window["-C2INTPLOT-"].update(data=bio.getvalue())
+                window["-C2INTPLOT-"].update(data=bio.getvalue())
+            except AttributeError:
+                sg.popup_error('Input Channel 2 Image Path First!')
 
         # Get location data using nucleus detection algorism after
         # C1 and C2 images are loaded
@@ -200,7 +207,7 @@ def main():
             #  get cell index number
             Cellidx = int(values['-CELLIDX-'])
 
-            if 0 < Cellidx < len(Location):  # check if index is valid
+            if 0 <= Cellidx < len(Location):  # check if index is valid
                 # get location coordinates base on index
                 Cur_loc = Location[Cellidx]
 
@@ -347,10 +354,12 @@ def main():
             celltypes[Cellidx] = 1
             print(celltypes[Cellidx])
             print(Cellidx)
+        # annotate condensed chromatin cell
         if event == 'CC':
             celltypes[Cellidx] = 2
             print(celltypes[Cellidx])
             print(Cellidx)
+        # annotate karyorrhectic cell
         if event == 'KHC':
             celltypes[Cellidx] = 3
             print(celltypes[Cellidx])

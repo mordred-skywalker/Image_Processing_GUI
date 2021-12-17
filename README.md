@@ -52,7 +52,7 @@ The cell annotation GUI will show in the Python window. For how to further navig
 
 6. Note that in step 4 and 5 if the input cell index is out of range (if larger than the length of the returned coordinate list), a pop-up window will occur reminding you to reenter a valid cell index.
 
-7. To assign annotation to the segmented cell, click on the appropriate cell types shown on the right of the interface. Options include 'None' - 0, 'Normal Cell' - 1, 'CC' - 2, 'KHC' - 3, 'Folded' - 4, 'Unfocused' - 5. After annotation, the new results can be saved by clicking the 'Result' button in which the first column is the annotated value, while second/third column are the x/y coordinate for the center of the given cell.
+7. To assign annotation to the segmented cell, click on the appropriate cell types shown on the right of the interface. Options include 'None' - 0, 'Normal Cell' - 1, 'Condensed Chromatin Cell (CC)' - 2, 'Karyorrhectic Cell (KHC)' - 3, 'Folded' - 4, 'Unfocused' - 5. After annotation, the new results can be saved by clicking the 'Result' button in which the first column is the annotated value, while second/third column are the x/y coordinate for the center of the given cell.
 
 8. After you are done with the annotation, simply close the GUI by clicking the exit button and the module will end.
 

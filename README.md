@@ -48,7 +48,7 @@ The cell annotation GUI will show in the Python window. For how to further navig
 
 4. To show the annotated segmented image based on coordinates, enter a integer starting from 0 in the blank after 'Select cell index' and click 'Go'. The processed image will be saved locally and be shown under 'C1 Image:' and 'C2 Image:' along with new intensity maps, replacing the original images.
 
-5. Navigate to the next coordinate by manually enter another cell index or clicking 'Next'.
+5. Navigate to the next coordinate by manually enter another cell index or clicking 'Next'. You can view the current cell index and current coordinate on commandline for easier access.
 
 6. Note that in step 4 and 5 if the input cell index is out of range (if larger than the length of the returned coordinate list), a pop-up window will occur reminding you to reenter a valid cell index.
 

@@ -286,15 +286,16 @@ def main():
             # register cell index
             Cellidx = int(values['-CELLIDX-'])
             if 0 <= Cellidx < len(Location) - 1:
-                print(values['-CELLIDX-'])
+
                 # update the new cell index
                 Cellidx = int(values['-CELLIDX-']) + int(1)  # go to next index
                 Cur_loc = location[Cellidx]
+                print('Cellidx1: ', Cellidx)
 
                 try:
                     # similar to the function before
                     show_cropped_image(c1img, Cur_loc[0], Cur_loc[1], 70)
-                    print(Cur_loc)
+                    print('Cur_loc: ', Cur_loc)
                     c1Crop_img = Image.open('new_img.png')
                     c1Crop_img = c1Crop_img.resize((300, 300))
                     bio = io.BytesIO()
@@ -348,30 +349,30 @@ def main():
         # assign cell type number to cell type list
         if event == 'None':
             celltypes[Cellidx] = 0
-            print(celltypes[Cellidx])
-            print(Cellidx)
+            print('Assigned Celltype: ', celltypes[Cellidx])
+            print('Cellidx: ', Cellidx)
         if event == 'Normal Cell':
             celltypes[Cellidx] = 1
-            print(celltypes[Cellidx])
-            print(Cellidx)
+            print('Assigned Celltype: ', celltypes[Cellidx])
+            print('Cellidx: ', Cellidx)
         # annotate condensed chromatin cell
         if event == 'CC':
             celltypes[Cellidx] = 2
-            print(celltypes[Cellidx])
-            print(Cellidx)
+            print('Assigned Celltype: ', celltypes[Cellidx])
+            print('Cellidx: ', Cellidx)
         # annotate karyorrhectic cell
         if event == 'KHC':
             celltypes[Cellidx] = 3
-            print(celltypes[Cellidx])
-            print(Cellidx)
+            print('Assigned Celltype: ', celltypes[Cellidx])
+            print('Cellidx: ', Cellidx)
         if event == 'Folded':
             celltypes[Cellidx] = 4
-            print(celltypes[Cellidx])
-            print(Cellidx)
+            print('Assigned Celltype: ', celltypes[Cellidx])
+            print('Cellidx: ', Cellidx)
         if event == 'Unfocused':
             celltypes[Cellidx] = 5
-            print(celltypes[Cellidx])
-            print(Cellidx)
+            print('Assigned Celltype: ', celltypes[Cellidx])
+            print('Cellidx: ', Cellidx)
 
         if event == '-Result-':
             # turn data in to dataframe

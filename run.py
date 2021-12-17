@@ -1,4 +1,4 @@
-from Main_conbined_v2b import *
+from main_GUI import *
 
 if __name__ == '__main__':
     main()

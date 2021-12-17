@@ -141,7 +141,7 @@ def show_cropped_image(img, x, y, size):
 
     **Returns**
 
-        new_img: *list, list, int*
+        new_img: *image*
             A 2D array that represents the cropped image.
 
     '''
@@ -154,6 +154,6 @@ def show_cropped_image(img, x, y, size):
     # transform the image and use the coordinates to crop the image
     im_transform = Image.fromarray(img)
     new_img = im_transform.crop((left, top, right, bottom))
-    new_img = new_img.save('new_img.jpg')
+    new_img = new_img.save('new_img.png')
 
     return new_img
